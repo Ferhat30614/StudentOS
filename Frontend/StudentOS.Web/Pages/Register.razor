@@ -1,0 +1,52 @@
+﻿@page "/register"
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+<h3>Register</h3>
+
+<EditForm Model="_model" OnValidSubmit="HandleRegister">
+    <DataAnnotationsValidator /><ValidationSummary />
+    <div><label>Full Name</label><InputText @bind-Value="_model.FullName" /></div>
+    <div><label>Email</label><InputText @bind-Value="_model.Email" /></div>
+    <div><label>Password</label><InputText @bind-Value="_model.Password" type="password" /></div>
+    <div>
+        <label>Role</label>
+        <InputSelect @bind-Value="_model.Role">
+            <option value="Student">Student</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Admin">Admin</option>
+        </InputSelect>
+    </div>
+    <button type="submit">Register</button>
+    @if (!string.IsNullOrEmpty(_error))
+    {
+        <p style="color:red">@_error</p>
+    }
+    @if (!string.IsNullOrEmpty(_info))
+    {
+        <p style="color:green">@_info</p>
+    }
+</EditForm>
+
+@code {
+    private RegisterModel _model = new() { Role = "Student" };
+    private string? _error;
+    private string? _info;
+
+    private class RegisterModel
+    {
+        [System.ComponentModel.DataAnnotations.Required] public string FullName { get; set; } = "";
+        [System.ComponentModel.DataAnnotations.Required] public string Email { get; set; } = "";
+        [System.ComponentModel.DataAnnotations.Required] public string Password { get; set; } = "";
+        [System.ComponentModel.DataAnnotations.Required] public string Role { get; set; } = "Student";
+    }
+
+    private async Task HandleRegister()
+    {
+        var (ok, err, userId) = await Auth.RegisterAsync(_model.FullName, _model.Email, _model.Password, _model.Role);
+        if (!ok) { _error = err; return; }
+        _info = $"Registered. userId={userId}";
+        // Direkt login'e yönlendirmek istersen:
+        // Nav.NavigateTo("/login");
+    }
+}

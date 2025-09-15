@@ -1,0 +1,42 @@
+﻿@page "/login"
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+<h3>Login</h3>
+
+<EditForm Model="_model" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator /><ValidationSummary />
+    <div>
+        <label>Email</label>
+        <InputText @bind-Value="_model.Email" />
+    </div>
+    <div>
+        <label>Password</label>
+        <InputText @bind-Value="_model.Password" type="password" />
+    </div>
+    <button type="submit">Login</button>
+    @if (!string.IsNullOrEmpty(_error))
+    {
+        <p style="color:red">@_error</p>
+    }
+</EditForm>
+
+@code {
+    private LoginModel _model = new();
+    private string? _error;
+
+    private class LoginModel
+    {
+        [System.ComponentModel.DataAnnotations.Required]
+        public string Email { get; set; } = "";
+        [System.ComponentModel.DataAnnotations.Required]
+        public string Password { get; set; } = "";
+    }
+
+    private async Task HandleLogin()
+    {
+        var (ok, err) = await Auth.LoginAsync(_model.Email, _model.Password);
+        if (!ok) { _error = err; return; }
+        Nav.NavigateTo("/");
+    }
+}

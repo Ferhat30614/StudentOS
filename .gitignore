@@ -1,0 +1,66 @@
+# Visual Studio cache ve ayarları
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build çıktı klasörleri
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+
+# Rider / JetBrains IDE
+.idea/
+
+# Paketler
+*.nupkg
+*.snupkg
+packages/
+*.NuGet.Config
+
+# Kullanıcıya özel dosyalar
+*.rsuser
+*.suo
+*.user
+*.userprefs
+
+# Geçici dosyalar
+*.dbmdl
+*.bak
+*.backup
+*.tmp
+*.temp
+*.log
+
+# Publish profilleri
+Properties/PublishProfiles/
+
+# ASP.NET
+App_Data/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Dotnet
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Rider
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# SonarQube
+.sonar/

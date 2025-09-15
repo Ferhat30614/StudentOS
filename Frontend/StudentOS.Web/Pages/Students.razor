@@ -1,0 +1,49 @@
+﻿@page "/students"
+@attribute [Authorize(Roles = "Admin,Teacher")]
+@inject HttpClient Http
+
+<h3>Students</h3>
+
+@if (_rows is null)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <table>
+        <thead><tr><th>Id</th><th>Number</th><th>FullName</th><th>Email</th></tr></thead>
+        <tbody>
+            @foreach (var r in _rows)
+            {
+                <tr>
+                    <td>@r.Id</td>
+                    <td>@r.Number</td>
+                    <td>@r.User?.FullName</td>
+                    <td>@r.User?.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<StudentRow>? _rows;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _rows = await Http.GetFromJsonAsync<List<StudentRow>>("api/students");
+    }
+
+    public class StudentRow
+    {
+        public int Id { get; set; }
+        public string? Number { get; set; }
+        public UserDto? User { get; set; }
+    }
+    public class UserDto
+    {
+        public string? FullName { get; set; }
+        public string? Email { get; set; }
+        public string? UserId { get; set; }
+    }
+}

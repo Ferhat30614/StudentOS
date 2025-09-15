@@ -1,0 +1,22 @@
+﻿@page "/"
+@attribute [Authorize]
+
+<h3>Dashboard</h3>
+
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <p>Admin paneline hoş geldin.</p>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Teacher">
+    <Authorized>
+        <p>Teacher paneline hoş geldin.</p>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Student">
+    <Authorized>
+        <p>Student paneline hoş geldin.</p>
+    </Authorized>
+</AuthorizeView>

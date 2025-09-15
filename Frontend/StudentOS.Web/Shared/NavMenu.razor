@@ -1,0 +1,35 @@
+﻿<nav class="nav-menu">
+    <a href="/">Dashboard</a>
+
+    <AuthorizeView Roles="Admin">
+        <Authorized>
+            <a href="/students">Students</a>
+            <a href="/teachers">Teachers</a>
+            <a href="/courses">Courses</a>
+        </Authorized>
+    </AuthorizeView>
+
+    <AuthorizeView Roles="Teacher">
+        <Authorized>
+            <a href="/courses">My Courses</a>
+            <a href="/grades">Grades</a>
+            <a href="/attendances">Attendance</a>
+        </Authorized>
+    </AuthorizeView>
+
+    <AuthorizeView Roles="Student">
+        <Authorized>
+            <a href="/me">My Profile</a>
+        </Authorized>
+    </AuthorizeView>
+
+    <AuthorizeView>
+        <Authorized>
+            <a href="/logout">Logout</a>
+        </Authorized>
+        <NotAuthorized>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        </NotAuthorized>
+    </AuthorizeView>
+</nav>
